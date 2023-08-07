@@ -9,11 +9,14 @@ import java.util.Scanner;
 
 public class AdminManager implements Serializable {
     private static final long serialUID = 12345678;
-    private final List<User> stadium;
+    private List<User> stadium;
+    private List<User> retoreList;
     Scanner scanner = new Scanner(System.in);
 
     public AdminManager() {
         stadium = IOFile.readFile("D:\\md2\\CaseMd2\\src\\file\\Test.txt");
+        retoreList = IOFile.readFile("D:\\md2\\CaseMd2\\src\\file\\Oder.txt");
+
     }
 
 
@@ -40,6 +43,9 @@ public class AdminManager implements Serializable {
         User user = new User(id, price, name, size, address);
         stadium.add(user);
         IOFile.write(stadium, "D:\\md2\\CaseMd2\\src\\file\\Test.txt");
+        IOFile.write(stadium, "D:\\md2\\CaseMd2\\src\\file\\Oder.txt");
+
+
     }
 
     public User FindId() {
@@ -68,6 +74,7 @@ public class AdminManager implements Serializable {
         System.out.println("Địa chỉ");
         String address = scanner.nextLine();
         user.setAddress(address);
+        System.out.println("Sửa thành công ");
         IOFile.write(stadium, "D:\\md2\\CaseMd2\\src\\file\\Test.txt");
     }
 
@@ -75,16 +82,38 @@ public class AdminManager implements Serializable {
         if (!stadium.isEmpty()) {
             User user = FindId();
             if (user != null) {
+                retoreList.add(user);
                 stadium.remove(user);
 
                 System.out.println("Xoá Thành công ");
-                return;
             } else {
                 System.out.println("Mã không tồn tại ");
             }
-            IOFile.write(stadium, "D:\\md2\\CaseMd2\\src\\file\\Test.txt");
         }
+            IOFile.write(stadium, "D:\\md2\\CaseMd2\\src\\file\\Test.txt");
 
+
+    }
+    public void Oder() {
+        stadium = IOFile.readFile("D:\\md2\\CaseMd2\\src\\file\\Oder.txt");
+    }
+
+    public void cycleBin() {
+        System.out.println("Danh sách đã xoá :");
+        IOFile.write(retoreList, "D:\\md2\\CaseMd2\\src\\file\\Oder.txt");
+        for (User user : retoreList) {
+            System.out.println(user);
+        }
+    }
+    public void restore() {
+        stadium.addAll(retoreList);
+        retoreList.clear();
+        IOFile.write(retoreList,"D:\\md2\\CaseMd2\\src\\file\\Oder.txt");
+        Sort sort = new Sort();
+        stadium.sort(sort);
+        System.out.println("Khôi phục thành công");
+        IOFile.write(stadium,"D:\\md2\\CaseMd2\\src\\file\\Test.txt");
+        showList();
     }
 
 

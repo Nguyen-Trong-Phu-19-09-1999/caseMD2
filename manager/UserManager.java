@@ -23,27 +23,26 @@ public class UserManager implements Serializable {
         for (int i = 0; i < users.size(); i++) {
             if (id == users.get(i).getId()) {
                 System.out.println(users.get(i));
+                flag = false;
                 break;
             }
-            flag = false;
+
         }
-        if (!flag) {
+        if (flag) {
             System.out.println("Số ngoài danh sách");
-            System.out.println("Nêu Không biết hãy số 1 để xem mã :");
         }
     }
 
     public void FindToPrice() {
-        boolean flag = true;
+        boolean flag = false;
         System.out.println("Nhập giá tiền cần tìm :");
         double price = Integer.parseInt(scanner.nextLine());
         for (User user : users) {
             if (price == user.getPrice()) {
                 System.out.println(user);
-
-                return;
+                flag = true;
+                break;
             }
-            flag = false;
         }
         if (!flag) {
             System.out.println("Không có sân như giá tiền mong muốn");

@@ -18,7 +18,7 @@ public class IOFile implements Serializable{
             userList = (List<E>) objectInputStream.readObject();
 
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            System.out.print("");
         }
         return userList;
     }
